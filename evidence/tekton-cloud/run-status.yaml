@@ -1,0 +1,155 @@
+apiVersion: tekton.dev/v1
+kind: PipelineRun
+metadata:
+  annotations:
+    chains.tekton.dev/signed: "true"
+  creationTimestamp: "2026-10-19T18:26:31Z"
+  finalizers:
+  - chains.tekton.dev/pipelinerun
+  generateName: tax-calculator-lab-
+  generation: 1
+  labels:
+    tekton.dev/pipeline: tax-calculator-lab
+  name: tax-calculator-lab-v9zmh
+  namespace: sn-labs-sabyraslan20
+  resourceVersion: "3091199349"
+  uid: 12505e3b-d0c6-4cac-9b58-8a84654d0f87
+spec:
+  params:
+  - name: repo-url
+    value: https://github.com/asikxz008/tax-calculator-devops.git
+  - name: revision
+    value: 5310dc53ec0e57fdea5a900e60a20d453cf4f267
+  pipelineRef:
+    name: tax-calculator-lab
+  taskRunTemplate:
+    serviceAccountName: pipeline
+  timeouts:
+    pipeline: 30m0s
+  workspaces:
+  - name: source
+    volumeClaimTemplate:
+      metadata:
+        creationTimestamp: null
+      spec:
+        accessModes:
+        - ReadWriteOnce
+        resources:
+          requests:
+            storage: 1Gi
+        storageClassName: skills-network-learner
+      status: {}
+  - name: registry-auth
+    secret:
+      secretName: docker-reg-creds
+status:
+  childReferences:
+  - apiVersion: tekton.dev/v1
+    kind: TaskRun
+    name: tax-calculator-lab-v9zmh-clone
+    pipelineTaskName: clone
+  - apiVersion: tekton.dev/v1
+    kind: TaskRun
+    name: tax-calculator-lab-v9zmh-npminstall
+    pipelineTaskName: npminstall
+  - apiVersion: tekton.dev/v1
+    kind: TaskRun
+    name: tax-calculator-lab-v9zmh-tests
+    pipelineTaskName: tests
+  - apiVersion: tekton.dev/v1
+    kind: TaskRun
+    name: tax-calculator-lab-v9zmh-build
+    pipelineTaskName: build
+  completionTime: "2026-10-19T18:29:52Z"
+  conditions:
+  - lastTransitionTime: "2026-10-19T18:29:52Z"
+    message: 'Tasks Completed: 4 (Failed: 0, Cancelled 0), Skipped: 0'
+    reason: Succeeded
+    status: "True"
+    type: Succeeded
+  pipelineSpec:
+    params:
+    - default: https://github.com/asikxz008/tax-calculator-devops.git
+      name: repo-url
+      type: string
+    - default: main
+      name: revision
+      type: string
+    results:
+    - description: ""
+      name: commit
+      value: $(tasks.clone.results.commit)
+    - description: ""
+      name: image-url
+      value: $(tasks.build.results.IMAGE_URL)
+    - description: ""
+      name: image-digest
+      value: $(tasks.build.results.IMAGE_DIGEST)
+    tasks:
+    - name: clone
+      params:
+      - name: url
+        value: https://github.com/asikxz008/tax-calculator-devops.git
+      - name: revision
+        value: 5310dc53ec0e57fdea5a900e60a20d453cf4f267
+      - name: subdirectory
+        value: repo
+      - name: deleteExisting
+        value: "false"
+      taskRef:
+        kind: ClusterTask
+        name: git-clone
+      workspaces:
+      - name: output
+        workspace: source
+    - name: npminstall
+      runAfter:
+      - clone
+      taskRef:
+        kind: Task
+        name: npm
+      workspaces:
+      - name: source
+        workspace: source
+    - name: tests
+      runAfter:
+      - npminstall
+      taskRef:
+        kind: Task
+        name: jasmine
+      workspaces:
+      - name: source
+        workspace: source
+    - name: build
+      params:
+      - name: IMAGE
+        value: us.icr.io/sn-labs-sabyraslan20/tax-calculator:tax-calculator-lab-v9zmh
+      - name: CONTEXT
+        value: repo
+      - name: DOCKERFILE
+        value: repo/Dockerfile
+      - name: FORMAT
+        value: docker
+      - name: BUILD_EXTRA_ARGS
+        value: --isolation=chroot
+      runAfter:
+      - tests
+      taskRef:
+        kind: ClusterTask
+        name: buildah
+      workspaces:
+      - name: source
+        workspace: source
+      - name: dockerconfig
+        workspace: registry-auth
+    workspaces:
+    - name: source
+    - name: registry-auth
+  results:
+  - name: commit
+    value: 5310dc53ec0e57fdea5a900e60a20d453cf4f267
+  - name: image-url
+    value: us.icr.io/sn-labs-sabyraslan20/tax-calculator:tax-calculator-lab-v9zmh
+  - name: image-digest
+    value: sha256:0b0aa091392b15e354b439dbd317916d7c1311a6db4577d2569e022fb7f00ec6
+  startTime: "2026-10-19T18:26:31Z"

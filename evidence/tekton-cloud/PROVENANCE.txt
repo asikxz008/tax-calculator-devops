@@ -1,0 +1,13 @@
+Actual Skills Network OpenShift Tekton build and IBM Code Engine deployment.
+PipelineRun: tax-calculator-lab-v9zmh
+Namespace: sn-labs-sabyraslan20
+Completed: 2026-10-19T18:29:52Z
+Source commit: 5310dc53ec0e57fdea5a900e60a20d453cf4f267
+Image tag: us.icr.io/sn-labs-sabyraslan20/tax-calculator:tax-calculator-lab-v9zmh
+Image digest: sha256:0b0aa091392b15e354b439dbd317916d7c1311a6db4577d2569e022fb7f00ec6
+Deployed reference: us.icr.io/sn-labs-sabyraslan20/tax-calculator@sha256:0b0aa091392b15e354b439dbd317916d7c1311a6db4577d2569e022fb7f00ec6
+Application: https://tax-calculator-pipeline.2g4jzy6r91sb.us-south.codeengine.appdomain.cloud
+Screenshot: 10-final-output.jpg, captured from the actual public application URL.
+Deployment was performed with the Code Engine CLI after the Tekton build/push completed, as in the course instructions.
+Earlier failed attempt logs are retained locally and are not presented as successful runs.
+No credentials or Secret values are included.

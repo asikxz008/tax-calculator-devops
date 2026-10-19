@@ -1,0 +1,10 @@
+[pod/tax-calculator-lab-v9zmh-npminstall-pod/prepare] 2026/10/19 18:27:11 Entrypoint initialization
+[pod/tax-calculator-lab-v9zmh-npminstall-pod/place-scripts] 2026/10/19 18:27:12 Decoded script /tekton/scripts/script-0-xjxlg
+[pod/tax-calculator-lab-v9zmh-npminstall-pod/step-install] npm warn deprecated glob@10.5.0: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+[pod/tax-calculator-lab-v9zmh-npminstall-pod/step-install] 
+[pod/tax-calculator-lab-v9zmh-npminstall-pod/step-install] added 44 packages in 55s
+[pod/tax-calculator-lab-v9zmh-npminstall-pod/step-install] npm notice
+[pod/tax-calculator-lab-v9zmh-npminstall-pod/step-install] npm notice New major version of npm available! 10.9.4 -> 12.2.0
+[pod/tax-calculator-lab-v9zmh-npminstall-pod/step-install] npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+[pod/tax-calculator-lab-v9zmh-npminstall-pod/step-install] npm notice To update run: npm install -g npm@12.2.0
+[pod/tax-calculator-lab-v9zmh-npminstall-pod/step-install] npm notice

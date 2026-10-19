@@ -1,0 +1,68 @@
+OK
+
+Name:               tax-calculator-pipeline  
+ID:                 1ea9730a-a539-4f39-ba71-26fd9c687e5a  
+Project Name:       Code Engine - sn-labs-sabyraslan20  
+Project ID:         be29dbab-1070-4afd-93e3-a01e4ead7a95  
+Age:                19s  
+Created:            2026-10-19T14:31:50-04:00  
+URL:                https://tax-calculator-pipeline.2g4jzy6r91sb.us-south.codeengine.appdomain.cloud  
+Cluster Local URL:  http://tax-calculator-pipeline.2g4jzy6r91sb.svc.cluster.local  
+Console URL:        https://cloud.ibm.com/codeengine/project/us-south/be29dbab-1070-4afd-93e3-a01e4ead7a95/application/tax-calculator-pipeline/configuration  
+Status Summary:     Application deployed successfully  
+
+Environment Variables:    
+  Type     Name             Value  
+  Literal  CE_API_BASE_URL  https://api.private.us-south.codeengine.cloud.ibm.com  
+  Literal  CE_APP           tax-calculator-pipeline  
+  Literal  CE_DOMAIN        us-south.codeengine.appdomain.cloud  
+  Literal  CE_PROJECT_ID    be29dbab-1070-4afd-93e3-a01e4ead7a95  
+  Literal  CE_REGION        us-south  
+  Literal  CE_SUBDOMAIN     2g4jzy6r91sb  
+Image:                  us.icr.io/sn-labs-sabyraslan20/tax-calculator@sha256:0b0aa091392b15e354b439dbd317916d7c1311a6db4577d2569e022fb7f00ec6  
+Resource Allocation:      
+  CPU:                0.25  
+  Ephemeral Storage:  400M  
+  Memory:             500M  
+Registry Secrets:         
+  icr-secret  
+Port:                   8080  
+
+Revisions:          
+  tax-calculator-pipeline-00001:    
+    Age:                19s  
+    Latest:             true  
+    Traffic:            100%  
+    Image:              us.icr.io/sn-labs-sabyraslan20/tax-calculator@sha256:0b0aa091392b15e354b439dbd317916d7c1311a6db4577d2569e022fb7f00ec6 (pinned to 0b0aa0)  
+    Running Instances:  1  
+
+Runtime:            
+  Concurrency:       100  
+  Maximum Scale:     1  
+  Minimum Scale:     0  
+  Scale Down Delay:  0  
+  Timeout:           300  
+  Trusted profiles:  disabled  
+
+Readiness Probe:    
+  Type:  tcp  
+  Port:  0 (use listening port)  
+
+Conditions:         
+  Type                 OK    Age  Reason  
+  ConfigurationsReady  true  7s     
+  Ready                true  0s     
+  RoutesReady          true  0s     
+
+Events:             
+  Type    Reason   Age  Source              Messages  
+  Normal  Created  20s  service-controller  Created Configuration "tax-calculator-pipeline"  
+  Normal  Created  20s  service-controller  Created Route "tax-calculator-pipeline"  
+
+Instances:          
+  Name                                                       Revision                       Running  Status   Restarts  Age  
+  tax-calculator-pipeline-00001-deployment-6867445779-bwq7h  tax-calculator-pipeline-00001  3/3      Running  0         19s  
+
+For troubleshooting information visit: https://cloud.ibm.com/docs/codeengine?topic=codeengine-troubleshoot-apps.
+Run 'ibmcloud ce application events -n tax-calculator-pipeline' to get the system events of the application instances.
+Run 'ibmcloud ce application logs -f -n tax-calculator-pipeline' to follow the logs of the application instances.

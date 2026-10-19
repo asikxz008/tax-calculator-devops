@@ -1,0 +1,24 @@
+[pod/tax-calculator-lab-v9zmh-clone-pod/step-clone] + '[' false = true ']'
+[pod/tax-calculator-lab-v9zmh-clone-pod/step-clone] + '[' false = true ']'
+[pod/tax-calculator-lab-v9zmh-clone-pod/step-clone] + '[' false = true ']'
+[pod/tax-calculator-lab-v9zmh-clone-pod/step-clone] + CHECKOUT_DIR=/workspace/output/repo
+[pod/tax-calculator-lab-v9zmh-clone-pod/step-clone] + '[' false = true ']'
+[pod/tax-calculator-lab-v9zmh-clone-pod/step-clone] + test -z ''
+[pod/tax-calculator-lab-v9zmh-clone-pod/step-clone] + test -z ''
+[pod/tax-calculator-lab-v9zmh-clone-pod/step-clone] + test -z ''
+[pod/tax-calculator-lab-v9zmh-clone-pod/step-clone] + git config --global --add safe.directory /workspace/output
+[pod/tax-calculator-lab-v9zmh-clone-pod/step-clone] + /ko-app/git-init -url=https://github.com/asikxz008/tax-calculator-devops.git -revision=5310dc53ec0e57fdea5a900e60a20d453cf4f267 -refspec= -path=/workspace/output/repo -sslVerify=true -submodules=true -depth=1 -sparseCheckoutDirectories=
+[pod/tax-calculator-lab-v9zmh-clone-pod/step-clone] {"level":"info","ts":1792434426.0998883,"caller":"git/git.go:200","msg":"Successfully cloned https://github.com/asikxz008/tax-calculator-devops.git @ 5310dc53ec0e57fdea5a900e60a20d453cf4f267 (grafted, HEAD) in path /workspace/output/repo"}
+[pod/tax-calculator-lab-v9zmh-clone-pod/step-clone] {"level":"info","ts":1792434426.7867985,"caller":"git/git.go:239","msg":"Successfully initialized and updated submodules in path /workspace/output/repo"}
+[pod/tax-calculator-lab-v9zmh-clone-pod/step-clone] + cd /workspace/output/repo
+[pod/tax-calculator-lab-v9zmh-clone-pod/step-clone] ++ git rev-parse HEAD
+[pod/tax-calculator-lab-v9zmh-clone-pod/step-clone] + RESULT_SHA=5310dc53ec0e57fdea5a900e60a20d453cf4f267
+[pod/tax-calculator-lab-v9zmh-clone-pod/step-clone] + EXIT_CODE=0
+[pod/tax-calculator-lab-v9zmh-clone-pod/step-clone] + '[' 0 '!=' 0 ']'
+[pod/tax-calculator-lab-v9zmh-clone-pod/step-clone] ++ git log -1 --pretty=%ct
+[pod/tax-calculator-lab-v9zmh-clone-pod/step-clone] + RESULT_COMMITTER_DATE=1792431608
+[pod/tax-calculator-lab-v9zmh-clone-pod/step-clone] + printf %s 1792431608
+[pod/tax-calculator-lab-v9zmh-clone-pod/step-clone] + printf %s 5310dc53ec0e57fdea5a900e60a20d453cf4f267
+[pod/tax-calculator-lab-v9zmh-clone-pod/step-clone] + printf %s https://github.com/asikxz008/tax-calculator-devops.git
+[pod/tax-calculator-lab-v9zmh-clone-pod/prepare] 2026/10/19 18:26:36 Entrypoint initialization
+[pod/tax-calculator-lab-v9zmh-clone-pod/place-scripts] 2026/10/19 18:26:37 Decoded script /tekton/scripts/script-0-pmhq2
