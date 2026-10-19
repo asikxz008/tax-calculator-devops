@@ -1,0 +1,21 @@
+The push refers to repository [us.icr.io/sn-labs-sabyraslan20/tax-calculator]
+b343a2cae8a7: Preparing
+1a930ca78953: Preparing
+6bfbe298df6b: Preparing
+2a83fe515879: Preparing
+d73a8c345627: Preparing
+aa21de031a46: Preparing
+c5165b198ba2: Preparing
+d6d0586ce802: Preparing
+d6d0586ce802: Waiting
+aa21de031a46: Waiting
+c5165b198ba2: Waiting
+6bfbe298df6b: Pushed
+b343a2cae8a7: Pushed
+2a83fe515879: Pushed
+1a930ca78953: Pushed
+d73a8c345627: Pushed
+c5165b198ba2: Pushed
+d6d0586ce802: Pushed
+aa21de031a46: Pushed
+manual-5310dc5: digest: sha256:c09460bdc8425f67594db8fcc3b931e6590adc5bc05cf458fdcd7af978e07296 size: 1989

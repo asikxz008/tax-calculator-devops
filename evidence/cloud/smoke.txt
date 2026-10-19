@@ -1,0 +1,43 @@
+{
+  "url": "https://tax-calculator.2g4jzy6r91sb.us-south.codeengine.appdomain.cloud",
+  "health": "ok",
+  "calculation": {
+    "income": 85000,
+    "deductions": 5000,
+    "taxableIncome": 80000,
+    "tax": 11000,
+    "netIncome": 74000,
+    "effectiveRate": 0.12941176470588237,
+    "breakdown": [
+      {
+        "from": 0,
+        "to": 10000,
+        "rate": 0,
+        "taxableAmount": 10000,
+        "tax": 0
+      },
+      {
+        "from": 10000,
+        "to": 40000,
+        "rate": 0.1,
+        "taxableAmount": 30000,
+        "tax": 3000
+      },
+      {
+        "from": 40000,
+        "to": 100000,
+        "rate": 0.2,
+        "taxableAmount": 40000,
+        "tax": 8000
+      },
+      {
+        "from": 100000,
+        "to": null,
+        "rate": 0.3,
+        "taxableAmount": 0,
+        "tax": 0
+      }
+    ]
+  }
+}
+SMOKE TEST PASSED
