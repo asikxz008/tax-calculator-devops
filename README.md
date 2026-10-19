@@ -1,5 +1,7 @@
 # Tax Calculator — DevOps final project
 
+**Course assessment correction:** use [juphc-tc_pipeline](https://github.com/asikxz008/juphc-tc_pipeline) and its [complete corrected answers](https://github.com/asikxz008/juphc-tc_pipeline/blob/main/SUBMISSION.txt). The assessment requires an nginx Dockerfile with five named static assets and this exact repository name. The public Code Engine apps now serve that static nginx version. This repository retains the earlier independent Node.js implementation and historical execution evidence; its API smoke checks describe that earlier runtime.
+
 Educational Node.js application with Jasmine tests, a multi-stage Dockerfile, GitHub Actions container verification, IBM Cloud deployment instructions and Tekton definitions.
 
 **Repository:** https://github.com/asikxz008/tax-calculator-devops
