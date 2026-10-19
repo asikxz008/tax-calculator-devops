@@ -1,0 +1,18 @@
+﻿2026-10-19T14:43:22.3263887Z ##[group]Run set -o pipefail
+2026-10-19T14:43:22.3264292Z [36;1mset -o pipefail[0m
+2026-10-19T14:43:22.3264559Z [36;1mmkdir -p evidence/ci[0m
+2026-10-19T14:43:22.3264861Z [36;1mnpm test 2>&1 | tee evidence/ci/jasmine.txt[0m
+2026-10-19T14:43:22.3335357Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-19T14:43:22.3335758Z ##[endgroup]
+2026-10-19T14:43:22.4627498Z 
+2026-10-19T14:43:22.5454786Z > tax-calculator-devops@1.0.0 test
+2026-10-19T14:43:22.5455801Z > jasmine --config=spec/support/jasmine.json --no-color
+2026-10-19T14:43:22.5456312Z 
+2026-10-19T14:43:22.5456588Z Randomized with seed 31011
+2026-10-19T14:43:22.5457072Z Started
+2026-10-19T14:43:22.6443107Z ..............................
+2026-10-19T14:43:22.6444055Z 
+2026-10-19T14:43:22.6445000Z 
+2026-10-19T14:43:22.6445952Z 30 specs, 0 failures
+2026-10-19T14:43:22.6447029Z Finished in 0.099 seconds
+2026-10-19T14:43:22.6448707Z Randomized with seed 31011 (jasmine --random=true --seed=31011)
