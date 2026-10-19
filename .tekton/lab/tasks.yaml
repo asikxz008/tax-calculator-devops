@@ -1,0 +1,45 @@
+# Skills Network enforces runAsNonRoot. Match git-clone's existing UID so the
+# dependency installer can write into the cloned workspace without chmod 777.
+apiVersion: tekton.dev/v1
+kind: Task
+metadata:
+  name: npm
+spec:
+  workspaces:
+    - name: source
+  steps:
+    - name: install
+      image: node:22-bookworm-slim
+      workingDir: $(workspaces.source.path)/repo
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65532
+      env:
+        - name: HOME
+          value: /tmp
+      script: |
+        #!/bin/sh
+        set -eu
+        npm ci --ignore-scripts --no-audit --no-fund
+---
+apiVersion: tekton.dev/v1
+kind: Task
+metadata:
+  name: jasmine
+spec:
+  workspaces:
+    - name: source
+  steps:
+    - name: test
+      image: node:22-bookworm-slim
+      workingDir: $(workspaces.source.path)/repo
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65532
+      env:
+        - name: HOME
+          value: /tmp
+      script: |
+        #!/bin/sh
+        set -eu
+        npx jasmine

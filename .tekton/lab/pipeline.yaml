@@ -1,0 +1,76 @@
+# Skills Network's OpenShift cluster provides git-clone and buildah ClusterTasks.
+# The non-root npm and jasmine Task definitions are in lab/tasks.yaml.
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: tax-calculator-lab
+spec:
+  params:
+    - name: repo-url
+      type: string
+      default: https://github.com/asikxz008/tax-calculator-devops.git
+    - name: revision
+      type: string
+      default: main
+  workspaces:
+    - name: source
+    - name: registry-auth
+  results:
+    - name: commit
+      value: $(tasks.clone.results.commit)
+    - name: image-url
+      value: $(tasks.build.results.IMAGE_URL)
+    - name: image-digest
+      value: $(tasks.build.results.IMAGE_DIGEST)
+  tasks:
+    - name: clone
+      taskRef:
+        name: git-clone
+        kind: ClusterTask
+      params:
+        - name: url
+          value: $(params.repo-url)
+        - name: revision
+          value: $(params.revision)
+        - name: subdirectory
+          value: repo
+        - name: deleteExisting
+          value: 'false'
+      workspaces:
+        - name: output
+          workspace: source
+    - name: npminstall
+      runAfter: [clone]
+      taskRef:
+        name: npm
+      workspaces:
+        - name: source
+          workspace: source
+    - name: tests
+      runAfter: [npminstall]
+      taskRef:
+        name: jasmine
+      workspaces:
+        - name: source
+          workspace: source
+    - name: build
+      runAfter: [tests]
+      taskRef:
+        name: buildah
+        kind: ClusterTask
+      params:
+        - name: IMAGE
+          value: us.icr.io/$(context.pipelineRun.namespace)/tax-calculator:$(context.pipelineRun.name)
+        - name: CONTEXT
+          value: repo
+        - name: DOCKERFILE
+          value: repo/Dockerfile
+        - name: FORMAT
+          value: docker
+        - name: BUILD_EXTRA_ARGS
+          value: --isolation=chroot
+      workspaces:
+        - name: source
+          workspace: source
+        - name: dockerconfig
+          workspace: registry-auth
