@@ -9,9 +9,6 @@ spec:
     name: tax-calculator-lab
   serviceAccountName: pipeline
   timeout: 30m
-  podTemplate:
-    securityContext:
-      fsGroup: 65532
   params:
     - name: repo-url
       value: https://github.com/asikxz008/tax-calculator-devops.git
@@ -22,6 +19,7 @@ spec:
       volumeClaimTemplate:
         spec:
           accessModes: [ReadWriteOnce]
+          storageClassName: skills-network-learner
           resources:
             requests:
               storage: 1Gi

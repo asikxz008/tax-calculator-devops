@@ -1,5 +1,5 @@
 # Skills Network's OpenShift cluster provides git-clone and buildah ClusterTasks.
-# npm and jasmine are the same Task definitions in tasks.yaml.
+# The non-root npm and jasmine Task definitions are in lab/tasks.yaml.
 apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
