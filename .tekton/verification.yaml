@@ -1,0 +1,210 @@
+# Disposable kind verification. This profile does not deploy to IBM Cloud.
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: tax-verification
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: tax-verification
+rules:
+  - apiGroups: [apps]
+    resources: [deployments]
+    verbs: [get, list, watch, create, patch, update]
+  - apiGroups: ['']
+    resources: [services]
+    verbs: [get, create, patch, update]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: tax-verification
+subjects:
+  - kind: ServiceAccount
+    name: tax-verification
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: tax-verification
+---
+apiVersion: tekton.dev/v1
+kind: Task
+metadata:
+  name: tax-verification-fetch
+spec:
+  params:
+    - name: revision
+      type: string
+  workspaces:
+    - name: source
+  steps:
+    - name: clone
+      image: alpine:3.21
+      workingDir: $(workspaces.source.path)
+      env:
+        - name: REVISION
+          value: $(params.revision)
+      script: |
+        #!/bin/sh
+        set -eu
+        apk add --no-cache git ca-certificates
+        git init repo
+        cd repo
+        git remote add origin https://github.com/asikxz008/tax-calculator-devops.git
+        git fetch --depth=1 origin "$REVISION"
+        git checkout --detach FETCH_HEAD
+        git rev-parse HEAD
+---
+apiVersion: tekton.dev/v1
+kind: Task
+metadata:
+  name: tax-verification-build
+spec:
+  params:
+    - name: image
+      type: string
+  workspaces:
+    - name: source
+  results:
+    - name: image-id
+      description: Actual Docker image ID built and loaded into the kind node.
+  volumes:
+    - name: docker-socket
+      hostPath:
+        path: /var/run/host-docker.sock
+        type: Socket
+  steps:
+    - name: build-and-load
+      image: docker:27-cli
+      workingDir: $(workspaces.source.path)/repo
+      volumeMounts:
+        - name: docker-socket
+          mountPath: /var/run/docker.sock
+      env:
+        - name: IMAGE
+          value: $(params.image)
+      script: |
+        #!/bin/sh
+        set -eu
+        apk add --no-cache curl
+        docker build --progress plain -t "$IMAGE" .
+        docker image inspect "$IMAGE" --format '{{.Id}}' | tr -d '\n' > "$(results.image-id.path)"
+        curl -fsSL https://kind.sigs.k8s.io/dl/v0.30.0/kind-linux-amd64 -o /tmp/kind
+        chmod +x /tmp/kind
+        /tmp/kind load docker-image "$IMAGE" --name tax-verification
+---
+apiVersion: tekton.dev/v1
+kind: Task
+metadata:
+  name: tax-verification-deploy
+spec:
+  params:
+    - name: image
+      type: string
+  steps:
+    - name: deploy
+      image: alpine:3.21
+      env:
+        - name: IMAGE
+          value: $(params.image)
+      script: |
+        #!/bin/sh
+        set -eu
+        apk add --no-cache curl ca-certificates
+        curl -fsSL https://dl.k8s.io/release/v1.34.0/bin/linux/amd64/kubectl -o /tmp/kubectl
+        chmod +x /tmp/kubectl
+        cat <<EOF | /tmp/kubectl apply -f -
+        apiVersion: apps/v1
+        kind: Deployment
+        metadata:
+          name: tax-calculator
+        spec:
+          replicas: 1
+          selector:
+            matchLabels: {app: tax-calculator}
+          template:
+            metadata:
+              labels: {app: tax-calculator}
+            spec:
+              automountServiceAccountToken: false
+              containers:
+                - name: app
+                  image: $IMAGE
+                  imagePullPolicy: Never
+                  ports:
+                    - containerPort: 8080
+                  readinessProbe:
+                    httpGet: {path: /health, port: 8080}
+                    initialDelaySeconds: 1
+                    periodSeconds: 2
+                  resources:
+                    requests: {cpu: 50m, memory: 64Mi}
+                    limits: {memory: 128Mi}
+        ---
+        apiVersion: v1
+        kind: Service
+        metadata:
+          name: tax-calculator
+        spec:
+          type: NodePort
+          selector: {app: tax-calculator}
+          ports:
+            - port: 8080
+              targetPort: 8080
+              nodePort: 30080
+        EOF
+        /tmp/kubectl rollout status deployment/tax-calculator --timeout=180s
+        /tmp/kubectl get deployment/tax-calculator -o wide
+---
+apiVersion: tekton.dev/v1
+kind: Pipeline
+metadata:
+  name: tax-verification
+spec:
+  params:
+    - name: revision
+      type: string
+    - name: image
+      type: string
+  workspaces:
+    - name: source
+  results:
+    - name: image-id
+      value: $(tasks.build.results.image-id)
+  tasks:
+    - name: fetch
+      taskRef: {name: tax-verification-fetch}
+      params:
+        - name: revision
+          value: $(params.revision)
+      workspaces:
+        - name: source
+          workspace: source
+    - name: npminstall
+      runAfter: [fetch]
+      taskRef: {name: npm}
+      workspaces:
+        - name: source
+          workspace: source
+    - name: tests
+      runAfter: [npminstall]
+      taskRef: {name: jasmine}
+      workspaces:
+        - name: source
+          workspace: source
+    - name: build
+      runAfter: [tests]
+      taskRef: {name: tax-verification-build}
+      params:
+        - name: image
+          value: $(params.image)
+      workspaces:
+        - name: source
+          workspace: source
+    - name: deploy
+      runAfter: [build]
+      taskRef: {name: tax-verification-deploy}
+      params:
+        - name: image
+          value: $(params.image)
