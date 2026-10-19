@@ -1,0 +1,12 @@
+
+> tax-calculator-devops@1.0.0 test
+> jasmine --config=spec/support/jasmine.json --no-color
+
+Randomized with seed 08104
+Started
+..............................
+
+
+30 specs, 0 failures
+Finished in 0.09 seconds
+Randomized with seed 08104 (jasmine --random=true --seed=08104)
