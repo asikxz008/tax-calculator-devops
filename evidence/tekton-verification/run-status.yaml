@@ -1,0 +1,141 @@
+apiVersion: tekton.dev/v1
+kind: PipelineRun
+metadata:
+  creationTimestamp: "2026-10-19T17:34:50Z"
+  generation: 1
+  labels:
+    tekton.dev/pipeline: tax-verification
+  name: tax-verification
+  namespace: default
+  resourceVersion: "1238"
+  uid: dd158fb3-1354-42e3-96b1-7649f3df8f9d
+spec:
+  params:
+  - name: revision
+    value: 8ec2de551ef20b60d49b43ce7b59a002b381d6ee
+  - name: image
+    value: tax-calculator:tekton-8ec2de551ef20b60d49b43ce7b59a002b381d6ee
+  pipelineRef:
+    name: tax-verification
+  taskRunTemplate:
+    serviceAccountName: tax-verification
+  timeouts:
+    pipeline: 20m0s
+  workspaces:
+  - name: source
+    volumeClaimTemplate:
+      metadata:
+        creationTimestamp: null
+      spec:
+        accessModes:
+        - ReadWriteOnce
+        resources:
+          requests:
+            storage: 2Gi
+      status: {}
+status:
+  childReferences:
+  - apiVersion: tekton.dev/v1
+    kind: TaskRun
+    name: tax-verification-fetch
+    pipelineTaskName: fetch
+  - apiVersion: tekton.dev/v1
+    kind: TaskRun
+    name: tax-verification-npminstall
+    pipelineTaskName: npminstall
+  - apiVersion: tekton.dev/v1
+    kind: TaskRun
+    name: tax-verification-tests
+    pipelineTaskName: tests
+  - apiVersion: tekton.dev/v1
+    kind: TaskRun
+    name: tax-verification-build
+    pipelineTaskName: build
+  - apiVersion: tekton.dev/v1
+    kind: TaskRun
+    name: tax-verification-deploy
+    pipelineTaskName: deploy
+  completionTime: "2026-10-19T17:35:51Z"
+  conditions:
+  - lastTransitionTime: "2026-10-19T17:35:51Z"
+    message: 'Tasks Completed: 5 (Failed: 0, Cancelled 0), Skipped: 0'
+    reason: Succeeded
+    status: "True"
+    type: Succeeded
+  pipelineSpec:
+    params:
+    - name: revision
+      type: string
+    - name: image
+      type: string
+    results:
+    - description: ""
+      name: image-id
+      value: $(tasks.build.results.image-id)
+    tasks:
+    - name: fetch
+      params:
+      - name: revision
+        value: 8ec2de551ef20b60d49b43ce7b59a002b381d6ee
+      taskRef:
+        kind: Task
+        name: tax-verification-fetch
+      workspaces:
+      - name: source
+        workspace: source
+    - name: npminstall
+      runAfter:
+      - fetch
+      taskRef:
+        kind: Task
+        name: npm
+      workspaces:
+      - name: source
+        workspace: source
+    - name: tests
+      runAfter:
+      - npminstall
+      taskRef:
+        kind: Task
+        name: jasmine
+      workspaces:
+      - name: source
+        workspace: source
+    - name: build
+      params:
+      - name: image
+        value: tax-calculator:tekton-8ec2de551ef20b60d49b43ce7b59a002b381d6ee
+      runAfter:
+      - tests
+      taskRef:
+        kind: Task
+        name: tax-verification-build
+      workspaces:
+      - name: source
+        workspace: source
+    - name: deploy
+      params:
+      - name: image
+        value: tax-calculator:tekton-8ec2de551ef20b60d49b43ce7b59a002b381d6ee
+      runAfter:
+      - build
+      taskRef:
+        kind: Task
+        name: tax-verification-deploy
+    workspaces:
+    - name: source
+  provenance:
+    featureFlags:
+      awaitSidecarReadiness: true
+      coschedule: workspaces
+      enableAPIFields: beta
+      enableProvenanceInStatus: true
+      enforceNonfalsifiability: none
+      maxResultSize: 4096
+      resultExtractionMethod: termination-message
+      runningInEnvWithInjectedSidecars: true
+      verificationNoMatchPolicy: ignore
+  results:
+  - name: image-id
+    value: sha256:89ef3c3ee0e135d70c179c613defbaa238e59100d63593233a5310007f59efb1
+  startTime: "2026-10-19T17:34:50Z"

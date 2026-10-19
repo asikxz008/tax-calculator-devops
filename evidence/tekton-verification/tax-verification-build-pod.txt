@@ -1,0 +1,107 @@
+[pod/tax-verification-build-pod/prepare] 2026/10/19 17:35:24 Entrypoint initialization
+[pod/tax-verification-build-pod/place-scripts] 2026/10/19 17:35:25 Decoded script /tekton/scripts/script-0-sbjd2
+[pod/tax-verification-build-pod/step-build-and-load] fetch https://dl-cdn.alpinelinux.org/alpine/v3.21/main/x86_64/APKINDEX.tar.gz
+[pod/tax-verification-build-pod/step-build-and-load] fetch https://dl-cdn.alpinelinux.org/alpine/v3.21/community/x86_64/APKINDEX.tar.gz
+[pod/tax-verification-build-pod/step-build-and-load] (1/2) Upgrading libcurl (8.12.1-r0 -> 8.14.1-r3)
+[pod/tax-verification-build-pod/step-build-and-load] (2/2) Installing curl (8.14.1-r3)
+[pod/tax-verification-build-pod/step-build-and-load] Executing busybox-1.37.0-r12.trigger
+[pod/tax-verification-build-pod/step-build-and-load] OK: 23 MiB in 35 packages
+[pod/tax-verification-build-pod/step-build-and-load] #0 building with "default" instance using docker driver
+[pod/tax-verification-build-pod/step-build-and-load] 
+[pod/tax-verification-build-pod/step-build-and-load] #1 [internal] load build definition from Dockerfile
+[pod/tax-verification-build-pod/step-build-and-load] #1 transferring dockerfile: 690B 0.0s done
+[pod/tax-verification-build-pod/step-build-and-load] #1 DONE 0.0s
+[pod/tax-verification-build-pod/step-build-and-load] 
+[pod/tax-verification-build-pod/step-build-and-load] #2 [internal] load metadata for docker.io/library/node:22-bookworm-slim
+[pod/tax-verification-build-pod/step-build-and-load] #2 DONE 0.8s
+[pod/tax-verification-build-pod/step-build-and-load] 
+[pod/tax-verification-build-pod/step-build-and-load] #3 [internal] load .dockerignore
+[pod/tax-verification-build-pod/step-build-and-load] #3 transferring context: 100B done
+[pod/tax-verification-build-pod/step-build-and-load] #3 DONE 0.0s
+[pod/tax-verification-build-pod/step-build-and-load] 
+[pod/tax-verification-build-pod/step-build-and-load] #4 [internal] load build context
+[pod/tax-verification-build-pod/step-build-and-load] #4 transferring context: 36.52kB done
+[pod/tax-verification-build-pod/step-build-and-load] #4 DONE 0.0s
+[pod/tax-verification-build-pod/step-build-and-load] 
+[pod/tax-verification-build-pod/step-build-and-load] #5 [test 1/8] FROM docker.io/library/node:22-bookworm-slim@sha256:c3de60bf2f9dd0ac6370e6117950ff62d6e339527e7472301c9c78a017978392
+[pod/tax-verification-build-pod/step-build-and-load] #5 resolve docker.io/library/node:22-bookworm-slim@sha256:c3de60bf2f9dd0ac6370e6117950ff62d6e339527e7472301c9c78a017978392 done
+[pod/tax-verification-build-pod/step-build-and-load] #5 sha256:efd0ab5780c2d9ab1f0f869571a00d5edb17793bff4cce4a2792e3eb0ffc7562 1.93kB / 1.93kB done
+[pod/tax-verification-build-pod/step-build-and-load] #5 sha256:d0a16be756b6ec6658aecb8b7bcf87fa6c7d0d7fcc6ca53ad14bb49a4c90bdd7 6.77kB / 6.77kB done
+[pod/tax-verification-build-pod/step-build-and-load] #5 sha256:7fd1ebe418b5079d4aa36f416af9b143d127bc75b0155d71cb5fd559b5e04d39 0B / 28.25MB 0.1s
+[pod/tax-verification-build-pod/step-build-and-load] #5 sha256:f0400f4b55b0ad346bf6167a1b64a258e4d73db608c457798ce35e4ffeebfaaf 0B / 3.31kB 0.1s
+[pod/tax-verification-build-pod/step-build-and-load] #5 sha256:d22c69a95cf463f4cb74462bd2899597ce505d82bd4c01ceddf7845e12f13856 0B / 49.84MB 0.1s
+[pod/tax-verification-build-pod/step-build-and-load] #5 sha256:c3de60bf2f9dd0ac6370e6117950ff62d6e339527e7472301c9c78a017978392 5.22kB / 5.22kB done
+[pod/tax-verification-build-pod/step-build-and-load] #5 sha256:7fd1ebe418b5079d4aa36f416af9b143d127bc75b0155d71cb5fd559b5e04d39 11.53MB / 28.25MB 0.3s
+[pod/tax-verification-build-pod/step-build-and-load] #5 sha256:f0400f4b55b0ad346bf6167a1b64a258e4d73db608c457798ce35e4ffeebfaaf 3.31kB / 3.31kB 0.2s done
+[pod/tax-verification-build-pod/step-build-and-load] #5 sha256:2cfab517365cfc6b4bd1f8c4cb01754884ef75bc38758b3c41e291c696f019f5 0B / 1.71MB 0.3s
+[pod/tax-verification-build-pod/step-build-and-load] #5 sha256:7fd1ebe418b5079d4aa36f416af9b143d127bc75b0155d71cb5fd559b5e04d39 28.25MB / 28.25MB 0.3s done
+[pod/tax-verification-build-pod/step-build-and-load] #5 sha256:d22c69a95cf463f4cb74462bd2899597ce505d82bd4c01ceddf7845e12f13856 10.49MB / 49.84MB 0.4s
+[pod/tax-verification-build-pod/step-build-and-load] #5 sha256:2cfab517365cfc6b4bd1f8c4cb01754884ef75bc38758b3c41e291c696f019f5 1.71MB / 1.71MB 0.4s done
+[pod/tax-verification-build-pod/step-build-and-load] #5 extracting sha256:7fd1ebe418b5079d4aa36f416af9b143d127bc75b0155d71cb5fd559b5e04d39
+[pod/tax-verification-build-pod/step-build-and-load] #5 sha256:a8de9fa052209313d8e45435a8486e29b20eebaa820e2e7f63a7c3c94b4fa567 0B / 448B 0.4s
+[pod/tax-verification-build-pod/step-build-and-load] #5 sha256:d22c69a95cf463f4cb74462bd2899597ce505d82bd4c01ceddf7845e12f13856 41.94MB / 49.84MB 0.5s
+[pod/tax-verification-build-pod/step-build-and-load] #5 sha256:a8de9fa052209313d8e45435a8486e29b20eebaa820e2e7f63a7c3c94b4fa567 448B / 448B 0.4s done
+[pod/tax-verification-build-pod/step-build-and-load] #5 sha256:d22c69a95cf463f4cb74462bd2899597ce505d82bd4c01ceddf7845e12f13856 49.84MB / 49.84MB 0.5s done
+[pod/tax-verification-build-pod/step-build-and-load] #5 extracting sha256:7fd1ebe418b5079d4aa36f416af9b143d127bc75b0155d71cb5fd559b5e04d39 1.2s done
+[pod/tax-verification-build-pod/step-build-and-load] #5 extracting sha256:f0400f4b55b0ad346bf6167a1b64a258e4d73db608c457798ce35e4ffeebfaaf done
+[pod/tax-verification-build-pod/step-build-and-load] #5 extracting sha256:d22c69a95cf463f4cb74462bd2899597ce505d82bd4c01ceddf7845e12f13856
+[pod/tax-verification-build-pod/step-build-and-load] #5 extracting sha256:d22c69a95cf463f4cb74462bd2899597ce505d82bd4c01ceddf7845e12f13856 1.3s done
+[pod/tax-verification-build-pod/step-build-and-load] #5 extracting sha256:2cfab517365cfc6b4bd1f8c4cb01754884ef75bc38758b3c41e291c696f019f5
+[pod/tax-verification-build-pod/step-build-and-load] #5 extracting sha256:2cfab517365cfc6b4bd1f8c4cb01754884ef75bc38758b3c41e291c696f019f5 0.0s done
+[pod/tax-verification-build-pod/step-build-and-load] #5 extracting sha256:a8de9fa052209313d8e45435a8486e29b20eebaa820e2e7f63a7c3c94b4fa567 done
+[pod/tax-verification-build-pod/step-build-and-load] #5 DONE 3.6s
+[pod/tax-verification-build-pod/step-build-and-load] 
+[pod/tax-verification-build-pod/step-build-and-load] #6 [test 2/8] WORKDIR /app
+[pod/tax-verification-build-pod/step-build-and-load] #6 DONE 0.0s
+[pod/tax-verification-build-pod/step-build-and-load] 
+[pod/tax-verification-build-pod/step-build-and-load] #7 [test 3/8] COPY package.json package-lock.json ./
+[pod/tax-verification-build-pod/step-build-and-load] #7 DONE 0.0s
+[pod/tax-verification-build-pod/step-build-and-load] 
+[pod/tax-verification-build-pod/step-build-and-load] #8 [test 4/8] RUN npm ci --ignore-scripts --no-audit --no-fund
+[pod/tax-verification-build-pod/step-build-and-load] #8 1.057 npm warn deprecated glob@10.5.0: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+[pod/tax-verification-build-pod/step-build-and-load] #8 1.070 
+[pod/tax-verification-build-pod/step-build-and-load] #8 1.070 added 44 packages in 879ms
+[pod/tax-verification-build-pod/step-build-and-load] #8 1.072 npm notice
+[pod/tax-verification-build-pod/step-build-and-load] #8 1.072 npm notice New major version of npm available! 10.9.9 -> 12.2.0
+[pod/tax-verification-build-pod/step-build-and-load] #8 1.072 npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+[pod/tax-verification-build-pod/step-build-and-load] #8 1.072 npm notice To update run: npm install -g npm@12.2.0
+[pod/tax-verification-build-pod/step-build-and-load] #8 1.072 npm notice
+[pod/tax-verification-build-pod/step-build-and-load] #8 DONE 1.2s
+[pod/tax-verification-build-pod/step-build-and-load] 
+[pod/tax-verification-build-pod/step-build-and-load] #9 [test 5/8] COPY src ./src
+[pod/tax-verification-build-pod/step-build-and-load] #9 DONE 0.0s
+[pod/tax-verification-build-pod/step-build-and-load] 
+[pod/tax-verification-build-pod/step-build-and-load] #10 [test 6/8] COPY public ./public
+[pod/tax-verification-build-pod/step-build-and-load] #10 DONE 0.0s
+[pod/tax-verification-build-pod/step-build-and-load] 
+[pod/tax-verification-build-pod/step-build-and-load] #11 [test 7/8] COPY spec ./spec
+[pod/tax-verification-build-pod/step-build-and-load] #11 DONE 0.0s
+[pod/tax-verification-build-pod/step-build-and-load] 
+[pod/tax-verification-build-pod/step-build-and-load] #12 [test 8/8] RUN npm test
+[pod/tax-verification-build-pod/step-build-and-load] #12 0.219 
+[pod/tax-verification-build-pod/step-build-and-load] #12 0.219 > tax-calculator-devops@1.0.0 test
+[pod/tax-verification-build-pod/step-build-and-load] #12 0.219 > jasmine --config=spec/support/jasmine.json --no-color
+[pod/tax-verification-build-pod/step-build-and-load] #12 0.219 
+[pod/tax-verification-build-pod/step-build-and-load] #12 0.299 Randomized with seed 91555
+[pod/tax-verification-build-pod/step-build-and-load] #12 0.299 Started
+[pod/tax-verification-build-pod/step-build-and-load] #12 0.362 .......
+[pod/tax-verification-build-pod/step-build-and-load] #12 0.374 
+[pod/tax-verification-build-pod/step-build-and-load] #12 0.375 
+[pod/tax-verification-build-pod/step-build-and-load] #12 0.375 7 specs, 0 failures
+[pod/tax-verification-build-pod/step-build-and-load] #12 0.375 Finished in 0.076 seconds
+[pod/tax-verification-build-pod/step-build-and-load] #12 0.375 Randomized with seed 91555 (jasmine --random=true --seed=91555)
+[pod/tax-verification-build-pod/step-build-and-load] #12 DONE 0.4s
+[pod/tax-verification-build-pod/step-build-and-load] 
+[pod/tax-verification-build-pod/step-build-and-load] #13 [runtime 3/4] COPY --from=test --chown=node:node /app/src ./src
+[pod/tax-verification-build-pod/step-build-and-load] #13 DONE 0.0s
+[pod/tax-verification-build-pod/step-build-and-load] 
+[pod/tax-verification-build-pod/step-build-and-load] #14 [runtime 4/4] COPY --from=test --chown=node:node /app/public ./public
+[pod/tax-verification-build-pod/step-build-and-load] #14 DONE 0.0s
+[pod/tax-verification-build-pod/step-build-and-load] 
+[pod/tax-verification-build-pod/step-build-and-load] #15 exporting to image
+[pod/tax-verification-build-pod/step-build-and-load] #15 exporting layers
+[pod/tax-verification-build-pod/step-build-and-load] #15 exporting layers 0.7s done
+[pod/tax-verification-build-pod/step-build-and-load] #15 writing image sha256:89ef3c3ee0e135d70c179c613defbaa238e59100d63593233a5310007f59efb1 done
+[pod/tax-verification-build-pod/step-build-and-load] #15 naming to docker.io/library/tax-calculator:tekton-8ec2de551ef20b60d49b43ce7b59a002b381d6ee done
+[pod/tax-verification-build-pod/step-build-and-load] #15 DONE 0.7s
+[pod/tax-verification-build-pod/step-build-and-load] Image: "tax-calculator:tekton-8ec2de551ef20b60d49b43ce7b59a002b381d6ee" with ID "sha256:89ef3c3ee0e135d70c179c613defbaa238e59100d63593233a5310007f59efb1" not yet present on node "tax-verification-control-plane", loading...

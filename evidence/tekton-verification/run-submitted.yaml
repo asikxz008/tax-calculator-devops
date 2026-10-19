@@ -1,0 +1,21 @@
+apiVersion: tekton.dev/v1
+kind: PipelineRun
+metadata:
+  name: tax-verification
+spec:
+  pipelineRef: {name: tax-verification}
+  timeouts: {pipeline: 20m}
+  taskRunTemplate:
+    serviceAccountName: tax-verification
+  params:
+    - name: revision
+      value: 8ec2de551ef20b60d49b43ce7b59a002b381d6ee
+    - name: image
+      value: tax-calculator:tekton-8ec2de551ef20b60d49b43ce7b59a002b381d6ee
+  workspaces:
+    - name: source
+      volumeClaimTemplate:
+        spec:
+          accessModes: [ReadWriteOnce]
+          resources:
+            requests: {storage: 2Gi}

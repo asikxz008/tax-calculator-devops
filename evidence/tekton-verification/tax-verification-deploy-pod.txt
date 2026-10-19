@@ -1,0 +1,23 @@
+[pod/tax-verification-deploy-pod/prepare] 2026/10/19 17:35:43 Entrypoint initialization
+[pod/tax-verification-deploy-pod/place-scripts] 2026/10/19 17:35:44 Decoded script /tekton/scripts/script-0-ld84n
+[pod/tax-verification-deploy-pod/step-deploy] fetch https://dl-cdn.alpinelinux.org/alpine/v3.21/main/x86_64/APKINDEX.tar.gz
+[pod/tax-verification-deploy-pod/step-deploy] fetch https://dl-cdn.alpinelinux.org/alpine/v3.21/community/x86_64/APKINDEX.tar.gz
+[pod/tax-verification-deploy-pod/step-deploy] (1/10) Installing ca-certificates (20260909-r0)
+[pod/tax-verification-deploy-pod/step-deploy] (2/10) Installing brotli-libs (1.1.0-r2)
+[pod/tax-verification-deploy-pod/step-deploy] (3/10) Installing c-ares (1.34.8-r0)
+[pod/tax-verification-deploy-pod/step-deploy] (4/10) Installing libunistring (1.2-r0)
+[pod/tax-verification-deploy-pod/step-deploy] (5/10) Installing libidn2 (2.3.7-r0)
+[pod/tax-verification-deploy-pod/step-deploy] (6/10) Installing nghttp2-libs (1.69.0-r0)
+[pod/tax-verification-deploy-pod/step-deploy] (7/10) Installing libpsl (0.21.5-r3)
+[pod/tax-verification-deploy-pod/step-deploy] (8/10) Installing zstd-libs (1.5.6-r2)
+[pod/tax-verification-deploy-pod/step-deploy] (9/10) Installing libcurl (8.14.1-r3)
+[pod/tax-verification-deploy-pod/step-deploy] (10/10) Installing curl (8.14.1-r3)
+[pod/tax-verification-deploy-pod/step-deploy] Executing busybox-1.37.0-r14.trigger
+[pod/tax-verification-deploy-pod/step-deploy] Executing ca-certificates-20260909-r0.trigger
+[pod/tax-verification-deploy-pod/step-deploy] OK: 12 MiB in 25 packages
+[pod/tax-verification-deploy-pod/step-deploy] deployment.apps/tax-calculator created
+[pod/tax-verification-deploy-pod/step-deploy] service/tax-calculator created
+[pod/tax-verification-deploy-pod/step-deploy] Waiting for deployment "tax-calculator" rollout to finish: 0 of 1 updated replicas are available...
+[pod/tax-verification-deploy-pod/step-deploy] deployment "tax-calculator" successfully rolled out
+[pod/tax-verification-deploy-pod/step-deploy] NAME             READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS   IMAGES                                                           SELECTOR
+[pod/tax-verification-deploy-pod/step-deploy] tax-calculator   1/1     1            1           2s    app          tax-calculator:tekton-8ec2de551ef20b60d49b43ce7b59a002b381d6ee   app=tax-calculator

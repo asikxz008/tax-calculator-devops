@@ -1,0 +1,15 @@
+[pod/tax-verification-tests-pod/step-test] Randomized with seed 21011
+[pod/tax-verification-tests-pod/step-test] Started
+[pod/tax-verification-tests-pod/step-test] .......
+[pod/tax-verification-tests-pod/step-test] 
+[pod/tax-verification-tests-pod/step-test] 
+[pod/tax-verification-tests-pod/step-test] 7 specs, 0 failures
+[pod/tax-verification-tests-pod/step-test] Finished in 0.086 seconds
+[pod/tax-verification-tests-pod/step-test] Randomized with seed 21011 (jasmine --random=true --seed=21011)
+[pod/tax-verification-tests-pod/step-test] npm notice
+[pod/tax-verification-tests-pod/step-test] npm notice New major version of npm available! 10.9.9 -> 12.2.0
+[pod/tax-verification-tests-pod/step-test] npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+[pod/tax-verification-tests-pod/step-test] npm notice To update run: npm install -g npm@12.2.0
+[pod/tax-verification-tests-pod/step-test] npm notice
+[pod/tax-verification-tests-pod/prepare] 2026/10/19 17:35:18 Entrypoint initialization
+[pod/tax-verification-tests-pod/place-scripts] 2026/10/19 17:35:19 Decoded script /tekton/scripts/script-0-2p4zd
