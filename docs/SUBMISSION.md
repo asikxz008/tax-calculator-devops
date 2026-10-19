@@ -8,7 +8,7 @@ Tested commit: `41e86369076848e77ce11388e3c38b7332abd87c`.
 Docker image ID: `sha256:02a146a3a2d7c6bdca90794643f828118560969606552986ec20e4d8568711e6`.
 This is the locally built image ID on the GitHub-hosted runner, not an IBM registry digest.
 
-This file separates prepared code from actual execution. Do not submit a pending item as completed. The original course starter and exact question-by-question submission format were not supplied.
+This file records actual execution. The application is an independent teaching implementation; it was not copied from the original course starter.
 
 | Rubric item | Code / evidence | Status |
 | --- | --- | --- |
@@ -18,10 +18,10 @@ This file separates prepared code from actual execution. Do not submit a pending
 | 4. Deploy/test Docker container | `evidence/04-docker-smoke.txt`, `evidence/ci-success.jpg` | Real Docker container passed health and calculation checks in CI |
 | 5. Tag/push to IBM Registry | `evidence/cloud/05-docker-icr-push.txt` | Actual push succeeded in the Skills Network-provided IBM Registry namespace |
 | 6. Deploy to IBM Cloud | `evidence/cloud/06-deployed-on-cloud.txt`, `app-status.txt`, `smoke.txt`, `06-deployed-on-cloud.jpg` | Actual IBM Code Engine application is Running and passed the API smoke check |
-| 7. Create Tekton tasks | `.tekton/tasks.yaml` | Accepted by the Tekton webhook; npm and Jasmine tasks executed in the verification profile |
-| 8. Extend Pipeline | `.tekton/pipeline.yaml` | IBM profile implemented; verification profile executed all five steps |
-| 9. Run Tekton | `.tekton/run.yaml`; `evidence/tekton-verification/run-status.yaml` | Real verification PipelineRun succeeded in kind; IBM profile still requires credentials |
-| 10. Deploy pipeline image | `evidence/tekton-verification/10-final-output.png` | Image built and deployed by Tekton in kind; not IBM Cloud |
+| 7. Create Tekton tasks | `.tekton/lab/tasks.yaml` | npm and Jasmine Tasks executed successfully in Skills Network OpenShift |
+| 8. Extend Pipeline | `.tekton/lab/pipeline.yaml` | clone, npminstall, tests and Buildah build/push all succeeded |
+| 9. Run Tekton | `.tekton/lab/run.yaml`; `evidence/tekton-cloud/run-status.yaml` | PipelineRun tax-calculator-lab-v9zmh: Succeeded=True, four tasks completed, no failures or skipped tasks |
+| 10. Deploy pipeline image | `evidence/tekton-cloud/10-final-output.jpg` | The exact pipeline image digest is deployed in IBM Code Engine and passed smoke checks |
 
 Planning artifacts are in `docs/PLAN.md`. GitHub Actions is additional evidence and does not replace the explicitly required Tekton run. The local Windows machine had no Docker installation; container verification ran on GitHub's runner. `evidence/local-preview.jpg` shows the local Node.js app and must not be submitted as an IBM Cloud screenshot.
 
@@ -32,7 +32,7 @@ GitHub planning issues:
 - IBM Cloud deployment: https://github.com/asikxz008/tax-calculator-devops/issues/4
 - Tekton automation: https://github.com/asikxz008/tax-calculator-devops/issues/5
 
-The course provides IBM Cloud infrastructure through Skills Network Labs. A separate personal IBM Cloud registration or bank card is not needed for this lab. Actual IBM Registry push and manual Code Engine deployment are now recorded below. The verification profile separately proves actual Tekton execution and deployment on kind; it is not IBM-specific pipeline evidence. Assessment credit remains up to the course assessor.
+The course provides IBM Cloud infrastructure through Skills Network Labs. A separate personal IBM Cloud registration or bank card is not needed for this lab. Actual manual and pipeline-built IBM deployments are recorded below. The earlier kind verification is retained as additional evidence. Assessment credit remains up to the course assessor.
 
 ## Actual IBM Cloud manual deployment
 
@@ -57,7 +57,30 @@ Code Engine > Create Project in the IDE, then Code Engine CLI to use the
 preconfigured project and Kubeconfig. Use a separate ordinary terminal for
 Tekton in the learner's OpenShift namespace.
 
-## Actual Tekton build and deployment
+## Actual IBM Tekton build and deployment
+
+PipelineRun: `tax-calculator-lab-v9zmh` in `sn-labs-sabyraslan20`, completed on 2026-10-19 with `Succeeded=True`: four tasks completed, zero failed, cancelled or skipped. The submitted revision and resolved commit are `5310dc53ec0e57fdea5a900e60a20d453cf4f267`.
+
+The existing lab ClusterTasks cloned the source and built/pushed the image. The npm Task installed dependencies, then the Jasmine Task reported `7 specs, 0 failures` (seed 22982). Buildah pushed:
+
+`us.icr.io/sn-labs-sabyraslan20/tax-calculator:tax-calculator-lab-v9zmh`
+
+Registry digest: `sha256:0b0aa091392b15e354b439dbd317916d7c1311a6db4577d2569e022fb7f00ec6`.
+
+The Code Engine CLI then deployed that exact digest as `tax-calculator-pipeline`, using the existing lab registry pull secret, port 8080, 0.25 CPU, 0.5G memory and scale 0–1. Application status reported successful deployment, Ready=true and Running. The health/calculation smoke check passed with tax 11,000.
+
+Application: https://tax-calculator-pipeline.2g4jzy6r91sb.us-south.codeengine.appdomain.cloud/
+
+Submit these URLs for the course's code questions:
+
+- Task 7: https://github.com/asikxz008/tax-calculator-devops/blob/main/.tekton/lab/tasks.yaml
+- Task 8: https://github.com/asikxz008/tax-calculator-devops/blob/main/.tekton/lab/pipeline.yaml
+- Task 9: https://github.com/asikxz008/tax-calculator-devops/blob/main/.tekton/lab/run.yaml
+- Task 10: upload `evidence/tekton-cloud/10-final-output.jpg`.
+
+Actual PipelineRun/TaskRun status, submitted YAML, task logs, deployment output, pinned image reference and API check are in `evidence/tekton-cloud/`. The screenshot was captured from the public Code Engine URL above. Credentials remain in the lab and are absent from the repository. These educational resources can expire.
+
+## Earlier kind verification
 
 Successful run: https://github.com/asikxz008/tax-calculator-devops/actions/runs/39295132176
 
@@ -84,17 +107,17 @@ substitute for IBM-specific requirements is up to the course assessor.
 - For deployment, include the real application URL and a screenshot showing its result and URL.
 - Exclude tokens, API keys, secret files and environment dumps.
 
-## Files to collect after cloud execution
+## Collected cloud pipeline files
 
-- `evidence/cloud/registry-push.txt`
-- `evidence/cloud/registry-images.txt`
-- `evidence/cloud/deploy.txt`
-- `evidence/cloud/app-status.txt`
-- `evidence/cloud/app-url.txt`
-- `evidence/cloud/smoke.txt`
-- `evidence/cloud/deployed-app.jpg`
-- `evidence/tekton/run-log.txt`
-- `evidence/tekton/run-status.yaml`
-- `evidence/tekton/results.json`
+- `evidence/tekton-cloud/run-submitted.yaml`
+- `evidence/tekton-cloud/run-status.yaml` and `run-status.json`
+- `evidence/tekton-cloud/taskruns.yaml`
+- `evidence/tekton-cloud/tax-calculator-lab-v9zmh-*-pod.txt`
+- `evidence/tekton-cloud/image-digest-ref.txt`
+- `evidence/tekton-cloud/deploy.txt`
+- `evidence/tekton-cloud/app-status.txt` and `app-url.txt`
+- `evidence/tekton-cloud/smoke.txt`
+- `evidence/tekton-cloud/10-final-output.jpg`
+- `evidence/tekton-cloud/PROVENANCE.txt`
 
-Missing evidence files are intentionally absent; no simulated success logs are provided.
+These are actual captured results; no simulated success logs are provided.

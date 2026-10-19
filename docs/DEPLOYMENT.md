@@ -1,6 +1,22 @@
 # IBM Cloud and Tekton runbook
 
-These steps are for a Linux shell in the learner's authorized lab or workstation. IBM Cloud deployment and Tekton execution have not been performed without access to that environment.
+These steps are for a Linux shell in the learner's authorized lab or workstation. Actual execution evidence is recorded in SUBMISSION.md.
+
+## Skills Network lab profile
+
+The course provides the IBM Cloud resources; no separate personal IBM Cloud registration or bank card is needed. In the Cloud IDE, open Cloud > Code Engine > Create Project, then Code Engine CLI. Use an ordinary terminal for Tekton in the OpenShift learner namespace and the Code Engine CLI terminal for deploying the resulting image.
+
+The lab profile uses the existing `git-clone` and `buildah` ClusterTasks, the `pipeline` ServiceAccount and the `docker-reg-creds` Secret. The npm and Jasmine steps run as UID 65532 to match the cloned workspace. The workspace PVC explicitly selects `skills-network-learner`; the default IBM block storage class has no learner quota. Leave the pod's `fsGroup` unset so OpenShift can apply the appropriate security context for each task, including Buildah.
+
+```bash
+kubectl apply -f .tekton/lab/tasks.yaml
+kubectl apply -f .tekton/lab/pipeline.yaml
+kubectl create -f .tekton/lab/run.yaml
+```
+
+For reproducible execution, replace the run's `revision: main` parameter value with the intended full commit SHA before submitting it. The submitted run and its resolved commit are retained with the evidence.
+
+Code Engine uses its separate, existing `icr-secret` for image pulls. Deploy the registry digest returned by the successful Buildah task and verify the public application's health and calculation endpoints. Keep API keys in the laboratory environment; never commit credentials or Secret values.
 
 ## Prerequisites
 
@@ -100,7 +116,7 @@ kubectl get pipelinerun "$RUN" -o yaml > evidence/tekton/run-status.yaml
 kubectl get pipelinerun "$RUN" -o jsonpath='{.status.results}' > evidence/tekton/results.json
 ```
 
-`fetch → test → build → deploy` is ordered with `runAfter`. Failed tests prevent the build, push and deployment. The build gets a unique run tag. The deployment uses the registry digest returned by Buildah, so it deploys the image built by that run.
+`fetch → npminstall → tests → build → deploy` is ordered with `runAfter`. Failed tests prevent the build, push and deployment. The build gets a unique run tag. The deployment uses the registry digest returned by Buildah, so it deploys the image built by that run. In the Skills Network lab profile, deployment is a separate Code Engine CLI step after the Pipeline succeeds, matching the course instructions.
 
 The deploy task prints the actual app URL and executes an HTTP smoke check. Download its workspace evidence or retain its logs before deleting the run/PVC. Save a fresh screenshot of the resulting IBM Cloud application. No placeholder URL or example command output is acceptable as proof of execution.
 
