@@ -10,7 +10,7 @@ Educational Node.js application with Jasmine tests, a multi-stage Dockerfile, Gi
 
 **Earlier verified CI:** [successful CI run](https://github.com/asikxz008/tax-calculator-devops/actions/runs/39271499786): the earlier 30-spec layout passed; Docker image built; a real running container passed health and calculation smoke checks. [Submission status](docs/SUBMISSION.md) records actual execution and remaining steps.
 
-**Actual Tekton execution:** [successful five-task PipelineRun](https://github.com/asikxz008/tax-calculator-devops/actions/runs/39295132176) installed dependencies, passed seven Jasmine specs, built the Docker image and deployed it into disposable kind Kubernetes. [Screenshot and logs](evidence/tekton-verification/) document the actual deployment. This is not IBM Cloud; see [the verification profile](docs/TEKTON-VERIFICATION.md).
+**Actual IBM Tekton execution:** PipelineRun `tax-calculator-lab-v9zmh` completed all four tasks in Skills Network OpenShift, passed seven Jasmine specs and built/pushed the image to IBM Registry. Its exact digest is [deployed in IBM Code Engine](https://tax-calculator-pipeline.2g4jzy6r91sb.us-south.codeengine.appdomain.cloud/) and passed health/calculation checks. [Screenshot and actual logs](evidence/tekton-cloud/) document the run and deployment. The earlier [kind verification](docs/TEKTON-VERIFICATION.md) is retained separately.
 
 This is a new implementation prepared from the supplied assessment rubric. No original course starter or exact tax rules were supplied. The rates are fictional teaching data, not current tax rules for any jurisdiction. If the course requires a particular starter or calculation formula, reconcile those requirements before submitting.
 
@@ -67,9 +67,10 @@ GitHub Actions runs tests, builds the Docker image, starts a real container and 
 - [Epic and stories](docs/PLAN.md)
 - [IBM Cloud and Tekton runbook](docs/DEPLOYMENT.md)
 - [Assessment evidence and remaining work](docs/SUBMISSION.md)
-- [Tekton Tasks](.tekton/tasks.yaml), [Pipeline](.tekton/pipeline.yaml), [PipelineRun example](.tekton/run.example.yaml)
+- Skills Network: [Tekton Tasks](.tekton/lab/tasks.yaml), [Pipeline](.tekton/lab/pipeline.yaml), [PipelineRun](.tekton/lab/run.yaml)
+- Generic IBM profile: [Tasks](.tekton/tasks.yaml), [Pipeline](.tekton/pipeline.yaml), [PipelineRun example](.tekton/run.example.yaml)
 
-Cloud resources, registry credentials and a Tekton-enabled cluster are required for the IBM Cloud stages. Actual Tekton success is recorded for the separate kind verification profile, and manual IBM Cloud deployment is verified. Execution of the IBM Cloud pipeline profile is recorded separately when completed.
+The course-provided lab supplies the cloud resources and Tekton cluster. Actual manual IBM deployment and the Skills Network Tekton build/push followed by deployment of its digest are verified. Credentials remain in lab Secrets.
 
 ## Documentation consulted
 
