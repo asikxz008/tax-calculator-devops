@@ -1,5 +1,7 @@
 # Epic: Modernize and deliver the Tax Calculator
 
+GitHub epic: [#1](https://github.com/asikxz008/tax-calculator-devops/issues/1). Stories: [#2](https://github.com/asikxz008/tax-calculator-devops/issues/2), [#3](https://github.com/asikxz008/tax-calculator-devops/issues/3), [#4](https://github.com/asikxz008/tax-calculator-devops/issues/4), [#5](https://github.com/asikxz008/tax-calculator-devops/issues/5).
+
 As a learner, I want a tested, containerized tax calculator delivered by a repeatable pipeline so that I can demonstrate the complete development-to-deployment workflow.
 
 ## Story A: Calculate and verify tax
