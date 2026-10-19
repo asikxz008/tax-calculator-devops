@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tax Calculator · DevOps Project</title><link rel="stylesheet" href="/style.css"><script defer src="/app.js"></script></head>
+<body>
+<header><a class="brand" href="/">t<span>×</span> / Tax Calculator</a><span class="badge">EDUCATIONAL DEMO</span></header>
+<main>
+  <div class="intro"><p class="eyebrow">A LITTLE CLARITY FOR YOUR NUMBERS</p><h1>See where your<br>income goes.</h1><p>Explore a progressive tax calculation, one bracket at a time.</p></div>
+  <div class="layout">
+    <section class="card inputs" aria-labelledby="details"><p class="eyebrow">01 / YOUR DETAILS</p><h2 id="details">Start with your income</h2>
+      <form id="calculator">
+        <label for="income">Annual gross income <span>USD</span></label><div class="field"><span>$</span><input id="income" type="number" min="0" max="1000000000000" step="0.01" value="85000" required></div>
+        <label for="deductions">Annual deductions <span>USD</span></label><div class="field"><span>$</span><input id="deductions" type="number" min="0" max="1000000000000" step="0.01" value="5000" required></div>
+        <p class="hint">Deductions reduce the income used to calculate tax.</p>
+        <button id="calculate" type="submit">Calculate tax <span aria-hidden="true">↗</span></button>
+        <p id="error" role="alert"></p>
+      </form>
+      <div class="note"><strong>A model for learning.</strong><p>Uses fictional tax brackets to demonstrate the application. No personal information is stored.</p></div>
+    </section>
+    <section class="card results" aria-labelledby="summary"><p class="eyebrow">02 / YOUR BREAKDOWN</p><h2 id="summary">The bigger picture</h2>
+      <div id="result" aria-live="polite"><p class="result-label">Estimated annual tax</p><p class="total" id="tax">—</p>
+      <div class="metrics"><div><span>Take-home income</span><strong id="net">—</strong></div><div><span>Effective tax rate</span><strong id="rate">—</strong></div></div>
+      <div class="taxable"><span>Taxable income</span><strong id="taxable">—</strong></div>
+      <table><caption>Progressive tax brackets</caption><thead><tr><th scope="col">Income band</th><th scope="col">Rate</th><th scope="col">Tax</th></tr></thead><tbody id="brackets"></tbody></table>
+      <p class="hint">Each rate applies only to income within that bracket.</p></div>
+    </section>
+  </div>
+  <footer><span>Tax Calculator / DevOps final project</span><span>Node.js · Jasmine · Docker · Tekton</span></footer>
+</main></body></html>
