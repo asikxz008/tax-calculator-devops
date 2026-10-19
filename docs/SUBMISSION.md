@@ -12,7 +12,7 @@ This file separates prepared code from actual execution. Do not submit a pending
 
 | Rubric item | Code / evidence | Status |
 | --- | --- | --- |
-| 1. Run Jasmine | `spec/`, `evidence/01-jasmine.txt` | Executed locally: 30 specs, 0 failures |
+| 1. Run Jasmine | `spec/`, `evidence/01-jasmine-tests-passing.txt` | Executed with `npx jasmine`: 7 specs, 0 failures |
 | 2. Create Dockerfile | `Dockerfile`, `.dockerignore` | Implemented |
 | 3. Build Docker image | `evidence/03-docker-build.txt`; successful CI run above | Executed on GitHub-hosted Linux runner |
 | 4. Deploy/test Docker container | `evidence/04-docker-smoke.txt`, `evidence/ci-success.jpg` | Real Docker container passed health and calculation checks in CI |
