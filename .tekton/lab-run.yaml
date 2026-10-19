@@ -1,0 +1,30 @@
+# Run in the learner's Skills Network OpenShift namespace, not Code Engine's
+# Kubernetes context. Registry credentials stay in a Kubernetes Secret.
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  generateName: tax-calculator-lab-
+spec:
+  pipelineRef:
+    name: tax-calculator-lab
+  serviceAccountName: pipeline
+  timeout: 30m
+  podTemplate:
+    securityContext:
+      fsGroup: 65532
+  params:
+    - name: repo-url
+      value: https://github.com/asikxz008/tax-calculator-devops.git
+    - name: revision
+      value: main
+  workspaces:
+    - name: source
+      volumeClaimTemplate:
+        spec:
+          accessModes: [ReadWriteOnce]
+          resources:
+            requests:
+              storage: 1Gi
+    - name: registry-auth
+      secret:
+        secretName: docker-reg-creds
