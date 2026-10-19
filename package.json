@@ -1,0 +1,17 @@
+{
+  "name": "tax-calculator-devops",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Educational tax calculator with Jasmine, Docker and Tekton",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "jasmine --config=spec/support/jasmine.json --no-color",
+    "smoke": "node scripts/smoke.js"
+  },
+  "devDependencies": {
+    "jasmine": "7.0.0"
+  }
+}
