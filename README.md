@@ -4,9 +4,11 @@ Educational Node.js application with Jasmine tests, a multi-stage Dockerfile, Gi
 
 **Repository:** https://github.com/asikxz008/tax-calculator-devops
 
+**IBM Cloud deployment:** [open the actual calculator](https://tax-calculator.2g4jzy6r91sb.us-south.codeengine.appdomain.cloud/). Built and pushed to IBM Registry in Skills Network Labs, deployed to IBM Code Engine and passed health/calculation checks. [Actual cloud evidence](evidence/cloud/) includes the terminal output and screenshot. Educational resources can expire.
+
 **Current tests:** the same calculation and HTTP scenarios are grouped into seven specs to match the assessment format. Actual `npx jasmine` output: [7 specs, 0 failures](evidence/01-jasmine-tests-passing.txt).
 
-**Earlier verified CI:** [successful CI run](https://github.com/asikxz008/tax-calculator-devops/actions/runs/39271499786): the earlier 30-spec layout passed; Docker image built; a real running container passed health and calculation smoke checks. [Submission status](docs/SUBMISSION.md) records the cloud stages still pending access.
+**Earlier verified CI:** [successful CI run](https://github.com/asikxz008/tax-calculator-devops/actions/runs/39271499786): the earlier 30-spec layout passed; Docker image built; a real running container passed health and calculation smoke checks. [Submission status](docs/SUBMISSION.md) records actual execution and remaining steps.
 
 **Actual Tekton execution:** [successful five-task PipelineRun](https://github.com/asikxz008/tax-calculator-devops/actions/runs/39295132176) installed dependencies, passed seven Jasmine specs, built the Docker image and deployed it into disposable kind Kubernetes. [Screenshot and logs](evidence/tekton-verification/) document the actual deployment. This is not IBM Cloud; see [the verification profile](docs/TEKTON-VERIFICATION.md).
 
@@ -67,7 +69,7 @@ GitHub Actions runs tests, builds the Docker image, starts a real container and 
 - [Assessment evidence and remaining work](docs/SUBMISSION.md)
 - [Tekton Tasks](.tekton/tasks.yaml), [Pipeline](.tekton/pipeline.yaml), [PipelineRun example](.tekton/run.example.yaml)
 
-Cloud resources, registry credentials and a Tekton-enabled cluster are required for the IBM Cloud stages. Actual Tekton success is recorded for the separate kind verification profile; IBM Cloud deployment remains pending.
+Cloud resources, registry credentials and a Tekton-enabled cluster are required for the IBM Cloud stages. Actual Tekton success is recorded for the separate kind verification profile, and manual IBM Cloud deployment is verified. Execution of the IBM Cloud pipeline profile is recorded separately when completed.
 
 ## Documentation consulted
 
