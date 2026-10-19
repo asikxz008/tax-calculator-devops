@@ -1,0 +1,48 @@
+name: Test and container verification
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Jasmine unit and API tests
+        shell: bash
+        run: |
+          set -o pipefail
+          mkdir -p evidence/ci
+          npm test 2>&1 | tee evidence/ci/jasmine.txt
+      - name: Build Docker image
+        shell: bash
+        run: |
+          set -o pipefail
+          docker build --progress plain -t tax-calculator:${{ github.sha }} . 2>&1 | tee evidence/ci/docker-build.txt
+          docker image inspect tax-calculator:${{ github.sha }} > evidence/ci/docker-image.json
+      - name: Verify running container
+        shell: bash
+        run: |
+          set -o pipefail
+          docker run -d --name tax-calculator -p 8080:8080 tax-calculator:${{ github.sha }}
+          npm run smoke 2>&1 | tee evidence/ci/docker-smoke.txt
+          docker inspect tax-calculator > evidence/ci/docker-container.json
+      - name: Container logs
+        if: always()
+        run: docker logs tax-calculator > evidence/ci/container.txt 2>&1 || true
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: verification-${{ github.sha }}
+          path: evidence/ci/
+      - name: Stop container
+        if: always()
+        run: docker rm -f tax-calculator || true
