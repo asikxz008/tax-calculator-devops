@@ -45,22 +45,22 @@ spec:
       workspaces:
         - name: source
           workspace: source
-    - name: install
+    - name: npminstall
       runAfter: [fetch]
       taskRef:
         name: npm
       workspaces:
         - name: source
           workspace: source
-    - name: test
-      runAfter: [install]
+    - name: tests
+      runAfter: [npminstall]
       taskRef:
         name: jasmine
       workspaces:
         - name: source
           workspace: source
     - name: build
-      runAfter: [test]
+      runAfter: [tests]
       taskRef:
         name: tax-build-push
       params:
