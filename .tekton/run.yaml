@@ -1,0 +1,42 @@
+# PipelineRun configuration; not execution evidence.
+# Replace CHANGE_ME_NAMESPACE and CHANGE_ME_CODE_ENGINE_PROJECT with actual
+# resources in your authorized IBM Cloud account before running this file.
+# Requires Tekton, the tax-pipeline ServiceAccount, icr-auth and
+# ibm-cloud-credentials Kubernetes Secrets, and the Code Engine icr-pull secret.
+apiVersion: tekton.dev/v1
+kind: PipelineRun
+metadata:
+  generateName: tax-calculator-
+spec:
+  pipelineRef:
+    name: tax-calculator
+  timeouts:
+    pipeline: 45m
+  taskRunTemplate:
+    serviceAccountName: tax-pipeline
+  params:
+    - name: repo-url
+      value: https://github.com/asikxz008/tax-calculator-devops.git
+    - name: revision
+      value: 928956914aaea89efb1335aa941282f14e8a65e7
+    - name: image-repository
+      value: us.icr.io/CHANGE_ME_NAMESPACE/tax-calculator
+    - name: region
+      value: us-south
+    - name: resource-group
+      value: Default
+    - name: project
+      value: CHANGE_ME_CODE_ENGINE_PROJECT
+    - name: registry-secret
+      value: icr-pull
+  workspaces:
+    - name: source
+      volumeClaimTemplate:
+        spec:
+          accessModes: [ReadWriteOnce]
+          resources:
+            requests:
+              storage: 2Gi
+    - name: registry-auth
+      secret:
+        secretName: icr-auth
