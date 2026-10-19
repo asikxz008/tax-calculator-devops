@@ -3,7 +3,7 @@ kind: Pipeline
 metadata:
   name: tax-calculator
 spec:
-  description: Clone, run Jasmine, build and push to ICR, deploy the resulting digest to Code Engine.
+  description: Clone, install npm dependencies, run Jasmine, build and push to ICR, deploy the resulting digest to Code Engine.
   params:
     - name: repo-url
       type: string
@@ -45,10 +45,17 @@ spec:
       workspaces:
         - name: source
           workspace: source
-    - name: test
+    - name: install
       runAfter: [fetch]
       taskRef:
-        name: tax-jasmine
+        name: npm
+      workspaces:
+        - name: source
+          workspace: source
+    - name: test
+      runAfter: [install]
+      taskRef:
+        name: jasmine
       workspaces:
         - name: source
           workspace: source

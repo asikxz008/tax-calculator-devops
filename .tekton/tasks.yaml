@@ -36,8 +36,26 @@ spec:
 apiVersion: tekton.dev/v1
 kind: Task
 metadata:
-  name: tax-jasmine
+  name: npm
 spec:
+  description: Install the locked npm dependencies before running tests.
+  workspaces:
+    - name: source
+  steps:
+    - name: install
+      image: node:22-bookworm-slim
+      workingDir: $(workspaces.source.path)/repo
+      script: |
+        #!/bin/sh
+        set -eu
+        npm ci --ignore-scripts --no-audit --no-fund
+---
+apiVersion: tekton.dev/v1
+kind: Task
+metadata:
+  name: jasmine
+spec:
+  description: Run the seven Jasmine specs against dependencies installed by the npm task.
   workspaces:
     - name: source
   steps:
@@ -47,8 +65,7 @@ spec:
       script: |
         #!/bin/sh
         set -eu
-        npm ci --ignore-scripts --no-audit --no-fund
-        npm test
+        npx jasmine
 ---
 apiVersion: tekton.dev/v1
 kind: Task
