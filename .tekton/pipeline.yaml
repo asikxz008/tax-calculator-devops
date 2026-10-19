@@ -1,0 +1,84 @@
+apiVersion: tekton.dev/v1
+kind: Pipeline
+metadata:
+  name: tax-calculator
+spec:
+  description: Clone, run Jasmine, build and push to ICR, deploy the resulting digest to Code Engine.
+  params:
+    - name: repo-url
+      type: string
+      default: https://github.com/asikxz008/tax-calculator-devops.git
+    - name: revision
+      type: string
+      default: main
+    - name: image-repository
+      type: string
+      description: Registry/namespace/repository WITHOUT a tag, for example us.icr.io/my-namespace/tax-calculator
+    - name: region
+      type: string
+      default: us-south
+    - name: resource-group
+      type: string
+      default: Default
+    - name: project
+      type: string
+    - name: registry-secret
+      type: string
+      default: icr-pull
+  workspaces:
+    - name: source
+    - name: registry-auth
+  results:
+    - name: commit
+      value: $(tasks.fetch.results.commit)
+    - name: image-digest
+      value: $(tasks.build.results.digest)
+  tasks:
+    - name: fetch
+      taskRef:
+        name: tax-fetch-source
+      params:
+        - name: url
+          value: $(params.repo-url)
+        - name: revision
+          value: $(params.revision)
+      workspaces:
+        - name: source
+          workspace: source
+    - name: test
+      runAfter: [fetch]
+      taskRef:
+        name: tax-jasmine
+      workspaces:
+        - name: source
+          workspace: source
+    - name: build
+      runAfter: [test]
+      taskRef:
+        name: tax-build-push
+      params:
+        - name: image
+          value: $(params.image-repository):$(context.pipelineRun.name)
+      workspaces:
+        - name: source
+          workspace: source
+        - name: registry-auth
+          workspace: registry-auth
+    - name: deploy
+      runAfter: [build]
+      taskRef:
+        name: tax-deploy-code-engine
+      params:
+        - name: image
+          value: $(params.image-repository)@$(tasks.build.results.digest)
+        - name: region
+          value: $(params.region)
+        - name: resource-group
+          value: $(params.resource-group)
+        - name: project
+          value: $(params.project)
+        - name: registry-secret
+          value: $(params.registry-secret)
+      workspaces:
+        - name: source
+          workspace: source

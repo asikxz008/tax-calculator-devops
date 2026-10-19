@@ -1,0 +1,34 @@
+# Replace CHANGE_ME values before submitting. This example has NOT been executed.
+apiVersion: tekton.dev/v1
+kind: PipelineRun
+metadata:
+  generateName: tax-calculator-
+spec:
+  pipelineRef:
+    name: tax-calculator
+  timeouts:
+    pipeline: 45m
+  taskRunTemplate:
+    serviceAccountName: tax-pipeline
+  params:
+    - name: image-repository
+      value: us.icr.io/CHANGE_ME_NAMESPACE/tax-calculator
+    - name: revision
+      value: main
+    - name: region
+      value: us-south
+    - name: resource-group
+      value: Default
+    - name: project
+      value: CHANGE_ME_CODE_ENGINE_PROJECT
+  workspaces:
+    - name: source
+      volumeClaimTemplate:
+        spec:
+          accessModes: [ReadWriteOnce]
+          resources:
+            requests:
+              storage: 2Gi
+    - name: registry-auth
+      secret:
+        secretName: icr-auth
