@@ -16,8 +16,8 @@ This file separates prepared code from actual execution. Do not submit a pending
 | 2. Create Dockerfile | `Dockerfile`, `.dockerignore` | Implemented |
 | 3. Build Docker image | `evidence/03-docker-build.txt`; successful CI run above | Executed on GitHub-hosted Linux runner |
 | 4. Deploy/test Docker container | `evidence/04-docker-smoke.txt`, `evidence/ci-success.jpg` | Real Docker container passed health and calculation checks in CI |
-| 5. Tag/push to IBM Registry | `docs/DEPLOYMENT.md` section 2 | Pending: IBM Cloud access |
-| 6. Deploy to IBM Cloud | `scripts/deploy-ibm.sh` | Pending: IBM Cloud access and actual screenshot |
+| 5. Tag/push to IBM Registry | `evidence/cloud/05-docker-icr-push.txt` | Actual push succeeded in the Skills Network-provided IBM Registry namespace |
+| 6. Deploy to IBM Cloud | `evidence/cloud/06-deployed-on-cloud.txt`, `app-status.txt`, `smoke.txt`, `06-deployed-on-cloud.jpg` | Actual IBM Code Engine application is Running and passed the API smoke check |
 | 7. Create Tekton tasks | `.tekton/tasks.yaml` | Accepted by the Tekton webhook; npm and Jasmine tasks executed in the verification profile |
 | 8. Extend Pipeline | `.tekton/pipeline.yaml` | IBM profile implemented; verification profile executed all five steps |
 | 9. Run Tekton | `.tekton/run.yaml`; `evidence/tekton-verification/run-status.yaml` | Real verification PipelineRun succeeded in kind; IBM profile still requires credentials |
@@ -32,7 +32,30 @@ GitHub planning issues:
 - IBM Cloud deployment: https://github.com/asikxz008/tax-calculator-devops/issues/4
 - Tekton automation: https://github.com/asikxz008/tax-calculator-devops/issues/5
 
-The confirmed implementation and execution do not yet cover all ten rubric items. IBM Registry and IBM Cloud deployment still require the learner's cloud/lab access. The verification profile proves actual Tekton execution and deployment on kind, not the IBM-specific stages; a passing assessment score cannot be claimed.
+The course provides IBM Cloud infrastructure through Skills Network Labs. A separate personal IBM Cloud registration or bank card is not needed for this lab. Actual IBM Registry push and manual Code Engine deployment are now recorded below. The verification profile separately proves actual Tekton execution and deployment on kind; it is not IBM-specific pipeline evidence. Assessment credit remains up to the course assessor.
+
+## Actual IBM Cloud manual deployment
+
+Application: https://tax-calculator.2g4jzy6r91sb.us-south.codeengine.appdomain.cloud/
+
+Image: `us.icr.io/sn-labs-sabyraslan20/tax-calculator:manual-5310dc5`.
+Registry digest: `sha256:c09460bdc8425f67594db8fcc3b931e6590adc5bc05cf458fdcd7af978e07296`.
+
+The image was built from the project's Dockerfile in the course-provided Cloud IDE
+and pushed with Docker. Code Engine created the application using the lab's
+existing `icr-secret`, port 8080, 0.25 CPU, 0.5G memory and scale 0–1. The real
+CLI output ended in `OK`; application status showed Running. The public URL
+passed the health and calculation checks with tax 11,000 on income 85,000 and
+deductions 5,000. The screenshot was captured from that public application URL.
+These resources belong to the temporary educational environment and can expire.
+
+Course launch: https://www.coursera.org/learn/cloud-native-devops-agile-nosql/ungradedLti/mIHA4/final-project-option-b-javascript-part-b-and-c-tax-calculator
+
+The lab's "Task 5: Manual deploy on IBM Cloud" explicitly states that basic
+infrastructure is provided and external sign-up is unnecessary. Open Cloud >
+Code Engine > Create Project in the IDE, then Code Engine CLI to use the
+preconfigured project and Kubeconfig. Use a separate ordinary terminal for
+Tekton in the learner's OpenShift namespace.
 
 ## Actual Tekton build and deployment
 
