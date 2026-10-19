@@ -4,6 +4,8 @@ Educational Node.js application with Jasmine tests, a multi-stage Dockerfile, Gi
 
 **Repository:** https://github.com/asikxz008/tax-calculator-devops
 
+**Verified:** [successful CI run](https://github.com/asikxz008/tax-calculator-devops/actions/runs/39271499786): 30 Jasmine specs passed; Docker image built; a real running container passed health and calculation smoke checks. [Submission status](docs/SUBMISSION.md) records the cloud stages still pending access.
+
 This is a new implementation prepared from the supplied assessment rubric. No original course starter or exact tax rules were supplied. The rates are fictional teaching data, not current tax rules for any jurisdiction. If the course requires a particular starter or calculation formula, reconcile those requirements before submitting.
 
 ## Run locally
